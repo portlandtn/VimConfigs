@@ -90,6 +90,18 @@ vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename, { desc = "Rename symbol" }
 vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, { desc = "Code Action" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
 vim.keymap.set("n", "gb", "<C-o>", { desc = "[G]o [B]ack" })
+-- Insert blank line below
+vim.keymap.set("n", "<leader>o", ":put _<CR>", { desc = "Insert blank line below" })
+-- Insert blank line above
+vim.keymap.set("n", "<leader>O", ":put! _<CR>", { desc = "Insert blank line above" })
+
+-- Move Lines around
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down", silent = true })
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up", silent = true })
+
+-- Visual mode versions (for selected blocks)
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move block down", silent = true })
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move block up", silent = true })
 
 -- Jump to next ERROR
 vim.keymap.set("n", "]e", function()
