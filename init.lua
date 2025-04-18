@@ -85,6 +85,28 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
+-- Custom Keymappings
+vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename, { desc = "Rename symbol" })
+vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, { desc = "Code Action" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
+vim.keymap.set("n", "gb", "<C-o>", { desc = "[G]o [B]ack" })
+
+-- Jump to next ERROR
+vim.keymap.set("n", "]e", function()
+	vim.diagnostic.jump({
+		count = 1,
+		severity = vim.diagnostic.severity.ERROR,
+	})
+end, { desc = "Jump to next ERROR" })
+
+-- Jump to previous ERROR
+vim.keymap.set("n", "[e", function()
+	vim.diagnostic.jump({
+		count = -1,
+		severity = vim.diagnostic.severity.ERROR,
+	})
+end, { desc = "Jump to previous ERROR" })
+
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
@@ -342,6 +364,7 @@ require("lazy").setup({
 			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
 
 			-- Slightly advanced example of overriding default behavior and theme
 			vim.keymap.set("n", "<leader>/", function()
@@ -645,6 +668,32 @@ require("lazy").setup({
 						-- This handles overriding only values explicitly passed
 						-- by the server configuration above. Useful when disabling
 						-- certain features of an LSP (for example, turning off formatting for ts_ls)
+						if server_name == "omnisharp" then
+							server.cmd = {
+								vim.fn.stdpath("data") .. "/mason/bin/omnisharp",
+								"--languageserver",
+								"--hostPID",
+								tostring(vim.fn.getpid()),
+							}
+
+							server.enable_import_completion = true
+							server.organize_imports_on_format = true
+
+							server.on_attach = function(_, bufnr)
+								vim.keymap.set(
+									"n",
+									"<leader>.",
+									vim.lsp.buf.code_action,
+									{ buffer = bufnr, desc = "Code Action" }
+								)
+								vim.keymap.set(
+									"n",
+									"<leader>rn",
+									vim.lsp.buf.rename,
+									{ buffer = bufnr, desc = "Rename Symbol" }
+								)
+							end
+						end
 						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 						require("lspconfig")[server_name].setup(server)
 					end,
@@ -918,7 +967,7 @@ require("lazy").setup({
 	--    This is the easiest way to modularize your config.
 	--
 	--  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-	-- { import = 'custom.plugins' },
+	{ import = "custom.plugins" },
 	--
 	-- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
 	-- Or use telescope!
