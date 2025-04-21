@@ -29,3 +29,5 @@ keymap("n", "<C-h>", "<C-w><C-h>", { desc = "Move to left window" })
 keymap("n", "<C-l>", "<C-w><C-l>", { desc = "Move to right window" })
 keymap("n", "<C-j>", "<C-w><C-j>", { desc = "Move to lower window" })
 keymap("n", "<C-k>", "<C-w><C-k>", { desc = "Move to upper window" })
+
+vim.keymap.set("n", "-", ":Explore<CR>", { desc = "File Explorer" })
