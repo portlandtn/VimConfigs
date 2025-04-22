@@ -1,6 +1,24 @@
 -- Initialization
 require("tools")
 
+-- Hide files we don't normally care about
+vim.g.netrw_list_hide = [[\(^\|\s\s\)\(\.git\|\.gitignore\|\.gitattributes\|node_modules\|\.DS_Store\)\($\|/\)]]
+vim.g.netrw_hide = 1
+
+function _G.HideFiles()
+	vim.g.netrw_hide = 1
+	print("Netrw: Hiding hidden files")
+	-- Auto-refresh netrw if it's open
+	vim.cmd("Lexplore!")
+end
+
+function _G.UnhideFiles()
+	vim.g.netrw_hide = 0
+	print("Netrw: Unhiding hidden files")
+	-- Auto-refresh netrw if it's open
+	vim.cmd("edit .")
+end
+
 -- external files
 require("custom.keymaps")
 require("custom.options")

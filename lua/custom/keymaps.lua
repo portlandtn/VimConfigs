@@ -32,6 +32,10 @@ vim.keymap.set(
 	{ desc = "Explore NAFx.Encompass" }
 )
 
+-- Toggle hide/unhide files
+vim.api.nvim_create_user_command("Hide", HideFiles, {})
+vim.api.nvim_create_user_command("Unhide", UnhideFiles, {})
+
 -- Jump to next ERROR
 -- Error navigation
 vim.keymap.set("n", "]e", function()
