@@ -82,6 +82,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
 			require("telescope").extensions.harpoon.marks,
 			{ desc = "[H]arpoon [T]elescope" }
 		)
+		vim.keymap.set("n", "<leader>sgc", function()
+			builtin.live_grep({
+				additional_args = function()
+					return { "--glob", "*.cs" }
+				end,
+			})
+		end, { desc = "Live Grep only .cs files" })
 
 		-- vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
 
