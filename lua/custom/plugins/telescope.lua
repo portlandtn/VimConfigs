@@ -76,6 +76,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
 		vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 		vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+		vim.keymap.set(
+			"n",
+			"<leader>ht",
+			require("telescope").extensions.harpoon.marks,
+			{ desc = "[H]arpoon [T]elescope" }
+		)
+
 		-- vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
 
 		-- Slightly advanced example of overriding default behavior and theme

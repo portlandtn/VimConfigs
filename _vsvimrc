@@ -1,24 +1,65 @@
-" === VsVim Config ===
-set number
-set relativenumber
-set expandtab
-set shiftwidth=4
-set tabstop=4
+" === Core Settings ===
 set ignorecase
 set smartcase
 set incsearch
 set hlsearch
-set scrolloff=5
-set visualbell
-set vsvimcaret=100
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set backspace=eol,start,indent
+set nostartofline
+set autoindent
+set ttimeout
+set ttimeoutlen=50
 set clipboard=unnamed
-set backspace=indent,eol,start
-set novsvim_useeditordefaults
-set novsvim_useeditorindent
 
-" === Set space as <Leader> and test it ===
-let mapleader = " "
-nnoremap <leader>h :echo "Leader key works!"<CR>
+" === Basic Movement ===
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-" === Confirm load ===
-echo "✔ _vsvimrc loaded"
+" === Diagnostic Navigation (Closest to [d / ]d from Neovim) ===
+nnoremap ]d :vsc Edit.GoToNextLocation<cr>
+nnoremap [d :vsc Edit.GoToPrevLocation<cr>
+nnoremap ]l :vsc Edit.NextHighlightedReference<cr>
+nnoremap [l :vsc Edit.PreviousHighlightedReference<cr>
+
+" === Comment / Uncomment ===
+xnoremap gc :vsc Edit.CommentSelection<cr>
+nnoremap gcc V:vsc Edit.CommentSelection<cr>
+
+" === Go To Definition / References / Rename ===
+nnoremap gd :vsc Edit.GoToDefinition<cr>
+nnoremap gr :vsc Edit.FindAllReferences<cr>
+nnoremap gk :vsc Edit.PeekDefinition<cr>
+nnoremap grr :vsc Refactor.Rename<cr>
+
+" === Search / Replace ===
+nnoremap g// :vsc Edit.FindinFiles<cr>
+nnoremap g/r :vsc Edit.Replace<cr>
+
+" === Quick Navigation ===
+nnoremap <C-o> :vsc View.NavigateBackward<cr>
+nnoremap <C-i> :vsc View.NavigateForward<cr>
+
+" === File Navigation ===
+nnoremap <C-p> :vsc Workbench.Action.QuickOpen<cr>   " VSCode's file search (similar to Ctrl+P)
+
+" === Breakpoint Management ===
+nnoremap <Insert>       :vsc Debug.ToggleBreakpoint<cr>
+nnoremap [o<Insert>     :vsc Debug.EnableAllBreakpoints<cr>
+nnoremap ]o<Insert>     :vsc Debug.DisableAllBreakpoints<cr>
+nnoremap da<Insert>     :vsc Debug.DeleteAllBreakpoints<cr>
+
+" === Clear Search Highlights ===
+nnoremap <C-l> :nohlsearch<cr>
+
+" === Commented Out (Optional / Not Included) ===
+"   ReSharper-specific commands removed
+"   F# Interactive commands removed
+"   Expression manipulation / advanced refactor hacks removed
+
+" === Confirm Load ===
+echo "✔ _vsvimrc loaded and clean."
+
