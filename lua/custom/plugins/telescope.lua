@@ -2,104 +2,104 @@ return {
 	"nvim-telescope/telescope.nvim",
 	keys = {
 		{
-			"<leader>tsf",
+			"<leader>sf",
 			function()
 				require("telescope.builtin").find_files()
 			end,
-			desc = "[T]elescope [S]earch [F]iles",
+			desc = "[S]earch [F]iles",
 		},
 		{
-			"<leader>tsg",
+			"<leader>sg",
 			function()
 				require("telescope.builtin").live_grep()
 			end,
-			desc = "[T]elescope [S]earch by [G]rep",
+			desc = "[S]earch by [G]rep",
 		},
 		{
-			"<leader>tss",
+			"<leader>ss",
 			function()
 				require("telescope.builtin").builtin()
 			end,
-			desc = "[T]elescope [S]elect Telescope",
+			desc = "[S]elect Telescope",
 		},
 		{
-			"<leader>tsh",
+			"<leader>sh",
 			function()
 				require("telescope.builtin").help_tags()
 			end,
-			desc = "[T]elescope [S]earch [H]elp",
+			desc = "[S]earch [H]elp",
 		},
 		{
-			"<leader>tsk",
+			"<leader>sk",
 			function()
 				require("telescope.builtin").keymaps()
 			end,
-			desc = "[T]elescope [S]earch [K]eymaps",
+			desc = "[S]earch [K]eymaps",
 		},
 		{
-			"<leader>tsw",
+			"<leader>sw",
 			function()
 				require("telescope.builtin").grep_string()
 			end,
-			desc = "[T]elescope [S]earch current [W]ord",
+			desc = "[S]earch current [W]ord",
 		},
 		{
-			"<leader>tsd",
+			"<leader>sd",
 			function()
 				require("telescope.builtin").diagnostics()
 			end,
-			desc = "[T]elescope [S]earch [D]iagnostics",
+			desc = "[S]earch [D]iagnostics",
 		},
 		{
-			"<leader>tsr",
+			"<leader>sr",
 			function()
 				require("telescope.builtin").resume()
 			end,
-			desc = "[T]elescope [S]earch [R]esume",
+			desc = "[S]earch [R]esume",
 		},
 		{
-			"<leader>ts.",
+			"<leader>s.",
 			function()
 				require("telescope.builtin").oldfiles()
 			end,
-			desc = '[T]elescope [S]earch Recent Files ("." for repeat)',
+			desc = '[S]earch Recent Files ("." for repeat)',
 		},
 		{
-			"<leader>ttb",
+			"<leader>tb",
 			function()
 				require("telescope.builtin").buffers()
 			end,
-			desc = "[T]elescope [T]oggle [B]uffers",
+			desc = "[T]oggle [B]uffers",
 		},
 
 		-- Git-related Telescope builtins:
 		{
-			"<leader>tgc",
+			"<leader>gc",
 			function()
 				require("telescope.builtin").git_commits()
 			end,
-			desc = "[T]elescope [G]it [C]ommits",
+			desc = "[G]it [C]ommits",
 		},
 		{
-			"<leader>tgb",
+			"<leader>gb",
 			function()
 				require("telescope.builtin").git_branches()
 			end,
-			desc = "[T]elescope [G]it [B]ranches",
+			desc = "[G]it [B]ranches",
 		},
 		{
-			"<leader>tgs",
+			"<leader>gs",
 			function()
 				require("telescope.builtin").git_status()
 			end,
-			desc = "[T]elescope [G]it [S]tatus",
+			desc = "[G]it [S]tatus",
 		},
 		{
-			"<leader>tgS",
+			"<leader>gS",
 			function()
 				require("telescope.builtin").git_stash()
 			end,
-			desc = "[T]elescope [G]it [S]tash",
+			desc = "[G]it [S]tash",
 		},
 	},
 	dependencies = {
@@ -133,36 +133,36 @@ return {
 		-- 🔥 Custom / wrapper mappings (these stay down here)
 		vim.keymap.set(
 			"n",
-			"<leader>tht",
+			"<leader>ht",
 			require("telescope").extensions.harpoon.marks,
-			{ desc = "[T]elescope [H]arpoon [T]elescope" }
+			{ desc = "[H]arpoon [T]elescope" }
 		)
 
-		vim.keymap.set("n", "<leader>tsgc", function()
+		vim.keymap.set("n", "<leader>sgc", function()
 			builtin.live_grep({
 				additional_args = function()
 					return { "--glob", "*.cs" }
 				end,
 			})
-		end, { desc = "[T]elescope [S]earch [G]rep only .cs files" })
+		end, { desc = "[S]earch [G]rep only .cs files" })
 
-		vim.keymap.set("n", "<leader>t/", function()
+		vim.keymap.set("n", "<leader>/", function()
 			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 				winblend = 10,
 				previewer = false,
 			}))
-		end, { desc = "[T]elescope Fuzzy Search in Current Buffer" })
+		end, { desc = "Fuzzy Search in Current Buffer" })
 
-		vim.keymap.set("n", "<leader>ts/", function()
+		vim.keymap.set("n", "<leader>s/", function()
 			builtin.live_grep({
 				grep_open_files = true,
 				prompt_title = "Live Grep in Open Files",
 			})
-		end, { desc = "[T]elescope [S]earch [/] in Open Files" })
+		end, { desc = "[S]earch [/] in Open Files" })
 
-		vim.keymap.set("n", "<leader>tsn", function()
+		vim.keymap.set("n", "<leader>sn", function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
-		end, { desc = "[T]elescope [S]earch [N]eovim config files" })
+		end, { desc = "[S]earch [N]eovim config files" })
 
 		-- Uncomment if needed:
 		-- vim.keymap.set("n", "gr", builtin.lsp_references, { desc = "[G]oto [R]eferences" })
