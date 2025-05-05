@@ -4,6 +4,7 @@ require("tools")
 -- Hide files we don't normally care about
 vim.g.netrw_list_hide = [[\(^\|\s\s\)\(\.git\|\.gitignore\|\.gitattributes\|node_modules\|\.DS_Store\)\($\|/\)]]
 vim.g.netrw_hide = 1
+vim.g.netrw_banner = 0
 
 function _G.HideFiles()
 	vim.g.netrw_hide = 1

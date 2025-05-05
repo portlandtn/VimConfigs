@@ -22,6 +22,7 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Custom KeyMappings
+vim.keymap.set("n", "-", ":Ex<CR>", { desc = "Open netrw in current directory" })
 vim.keymap.set("n", "<leader>e", ":Neotree toggle<CR>", { desc = "Toggle File Explorer" })
 vim.keymap.set("n", "<leader>er", vim.diagnostic.open_float, { desc = "Show diagnostic float" })
 vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename, { desc = "Rename Symbol" })
@@ -35,6 +36,9 @@ vim.keymap.set(
 	":Explore C:/Users/Jed.May/source/repos/NAFX.Encompass/src/Plugin<CR>",
 	{ desc = "Explore NAFx.Encompass" }
 )
+-- Escape the movements
+vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
+vim.keymap.set("i", "kk", "<Esc>", { noremap = true, silent = true })
 
 -- Toggle hide/unhide files
 vim.api.nvim_create_user_command("Hide", HideFiles, {})
