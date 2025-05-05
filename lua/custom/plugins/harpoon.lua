@@ -11,6 +11,13 @@ return {
 
 		vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "[H]arpoon [A]dd File" })
 		vim.keymap.set("n", "<leader>harp", ui.toggle_quick_menu, { desc = "[H]arpoon [M]enu" })
+		vim.keymap.set("n", "<C-j>", function()
+			ui.nav_next()
+		end, { desc = "Navigate Next" })
+		vim.keymap.set("n", "<C-k>", function()
+			ui.nav_prev()
+		end, { desc = "Navigate Previous" })
+
 		vim.keymap.set("n", "<leader>1", function()
 			ui.nav_file(1)
 		end, { desc = "Harpoon File 1" })
