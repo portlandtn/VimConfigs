@@ -1,0 +1,13 @@
+{
+  "Constructor": {
+    "prefix": "ctor",
+    "body": [
+      "public ${1:ClassName}()$0",
+      "{",
+      "    ${0}",
+      "}"
+    ],
+    "description": "Constructor snippet"
+  }
+}
+

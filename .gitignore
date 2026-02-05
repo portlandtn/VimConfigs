@@ -1,0 +1,13 @@
+# Lazy plugin installs (do not commit)
+lazy/
+
+# Local build artifacts
+*.log
+*.tmp
+.DS_Store
+
+# If you use netrw/backup/swap/undo inside config for some reason
+*~
+*.swp
+*.swo
+
