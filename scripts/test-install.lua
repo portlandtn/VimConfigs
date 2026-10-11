@@ -1,5 +1,5 @@
 local uv = vim.uv
-local root = vim.fn.tempname()
+local root = vim.fs.normalize(vim.fn.tempname() .. " installer [paths]")
 local source = assert(uv.cwd())
 local target = root .. "/config/vimconfigs-install-test"
 local env = {
@@ -12,7 +12,7 @@ local env = {
 local function install()
 	local result = vim.system({ vim.v.progpath, "-l", source .. "/scripts/install.lua" }, { env = env, text = true })
 		:wait()
-	assert(result.code == 0, result.stderr)
+	assert(result.code == 0, (result.stdout or "") .. (result.stderr or ""))
 end
 local ok, err = xpcall(function()
 	install()
@@ -22,8 +22,20 @@ local ok, err = xpcall(function()
 	install()
 	assert(vim.fn.readfile(target .. "/local.lua")[1] == "return 'local settings retained'")
 	assert(vim.fn.filereadable(target .. "/sentinel.txt") == 0)
-	local backups = vim.fn.glob(target .. ".backup-*", false, true)
-	assert(#backups == 1, "Expected exactly one backup")
+	-- Inspect directory entries directly: path characters and Windows separators
+	-- must not be interpreted as glob syntax.
+	local backups = {}
+	local entries = assert(uv.fs_scandir(root .. "/config"))
+	while true do
+		local name, kind = uv.fs_scandir_next(entries)
+		if not name then
+			break
+		end
+		if kind == "directory" and name:match("^vimconfigs%-install%-test%.backup%-") then
+			table.insert(backups, vim.fs.joinpath(root, "config", name))
+		end
+	end
+	assert(#backups == 1, "Expected exactly one backup; found " .. #backups)
 	assert(vim.fn.readfile(backups[1] .. "/sentinel.txt")[1] == "previous configuration")
 end, debug.traceback)
 vim.fn.delete(root, "rf")

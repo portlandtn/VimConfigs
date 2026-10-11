@@ -39,3 +39,9 @@ The full-environment C# smoke check reports the expected warning that Roslyn is 
 The Windows/macOS matrix had not run during local validation; consult the pull request checks for current CI results. Native terminal rendering, OS clipboard providers, every Treesitter parser, language-server attachment/diagnostics, AI authentication, and installer failure recovery under filesystem/permission errors still need platform verification. Backup content preservation was tested; forced filesystem failure was not injected.
 
 This is a portability and compatibility update, not a blanket plugin upgrade. New Treesitter and Roslyn APIs have different requirements; migrating them needs separate testing. No independent Claude or Copilot review was performed.
+
+## Windows installer-test correction
+
+The first GitHub matrix passed both Linux and macOS versions plus Windows stable, but Windows Neovim 0.11.3 failed while locating the backup with `glob()`. The preceding assertions confirmed that the replacement config existed, local settings survived, and the old sentinel was absent from the replacement.
+
+The test now enumerates backup directory entries with libuv rather than interpreting the temporary path as a glob pattern. Its temporary path includes spaces and brackets, and child-process failures include both output streams. The revised installer checks pass locally on Neovim 0.11.3 and 0.12.4; see the PR checks for Windows confirmation.
