@@ -1,10 +1,7 @@
 return {
 	"coder/claudecode.nvim",
-	dependencies = {
-		"folke/snacks.nvim",
-	},
-	opts = {
-		terminal_cmd = vim.fn.expand("~/.claude/local/claude"),
-	},
-	config = true,
+	enabled = vim.fn.executable("claude") == 1,
+	cmd = { "ClaudeCode", "ClaudeCodeStart", "ClaudeCodeStatus", "ClaudeCodeSend", "ClaudeCodeAdd" },
+	dependencies = { "folke/snacks.nvim" },
+	opts = { terminal_cmd = "claude" },
 }

@@ -108,7 +108,13 @@ return {
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 			cond = function()
-				return vim.fn.executable("make") == 1
+				return vim.fn.has("win32") == 0
+					and vim.fn.executable("make") == 1
+					and (
+						vim.fn.executable("cc") == 1
+						or vim.fn.executable("gcc") == 1
+						or vim.fn.executable("clang") == 1
+					)
 			end,
 		},
 		{ "nvim-telescope/telescope-ui-select.nvim" },
@@ -129,14 +135,6 @@ return {
 		-- Load Extensions
 		pcall(telescope.load_extension, "fzf")
 		pcall(telescope.load_extension, "ui-select")
-
-		-- 🔥 Custom / wrapper mappings (these stay down here)
-		vim.keymap.set(
-			"n",
-			"<leader>ht",
-			require("telescope").extensions.harpoon.marks,
-			{ desc = "[H]arpoon [T]elescope" }
-		)
 
 		vim.keymap.set("n", "<leader>sgc", function()
 			builtin.live_grep({

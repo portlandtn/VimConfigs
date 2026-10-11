@@ -1,4 +1,3 @@
-lazy-lock.json
 .DS_Store
 # Lazy plugin installs (do not commit)
 lazy/
@@ -13,3 +12,6 @@ lazy/
 *.swp
 *.swo
 
+
+# Machine-specific overrides
+local.lua

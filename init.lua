@@ -1,5 +1,18 @@
 -- Initialization
-require("tools")
+if vim.fn.has("nvim-0.11.3") == 0 then
+	error("VimConfigs requires Neovim 0.11.3 or newer (not Vim).")
+end
+
+-- Set leaders before any mappings are defined.
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g.have_nerd_font = vim.env.NVIM_NERD_FONT == "1"
+
+-- Optional machine-specific settings; never tracked in Git.
+local local_config = vim.fn.stdpath("config") .. "/local.lua"
+if vim.fn.filereadable(local_config) == 1 then
+	dofile(local_config)
+end
 
 -- Hide files we don't normally care about
 vim.g.netrw_list_hide = [[\(^\|\s\s\)\(\.git\|\.gitignore\|\.gitattributes\|node_modules\|\.DS_Store\)\($\|/\)]]
@@ -23,15 +36,6 @@ end
 -- external files
 require("custom.keymaps")
 require("custom.options")
-
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -81,8 +85,8 @@ require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 	"https://github.com/ThePrimeagen/vim-be-good.git",
-	"windwp/nvim-autopairs",
 }, {
+	checker = { enabled = false },
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the
 		-- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
