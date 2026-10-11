@@ -36,6 +36,6 @@ The full-environment C# smoke check reports the expected warning that Roslyn is 
 
 ## Remaining verification
 
-The Windows/macOS matrix is configured but has not run; these changes have not been pushed to GitHub. Native terminal rendering, OS clipboard providers, every Treesitter parser, language-server attachment/diagnostics, AI authentication, and installer failure recovery under filesystem/permission errors still need platform verification. Backup content preservation was tested; forced filesystem failure was not injected.
+The Windows/macOS matrix had not run during local validation; consult the pull request checks for current CI results. Native terminal rendering, OS clipboard providers, every Treesitter parser, language-server attachment/diagnostics, AI authentication, and installer failure recovery under filesystem/permission errors still need platform verification. Backup content preservation was tested; forced filesystem failure was not injected.
 
 This is a portability and compatibility update, not a blanket plugin upgrade. New Treesitter and Roslyn APIs have different requirements; migrating them needs separate testing. No independent Claude or Copilot review was performed.
