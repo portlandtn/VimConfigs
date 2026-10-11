@@ -1,0 +1,6 @@
+{
+  "name": "vimconfigs-snippets",
+  "contributes": {
+    "snippets": [{ "language": "cs", "path": "./csharp.json" }]
+  }
+}

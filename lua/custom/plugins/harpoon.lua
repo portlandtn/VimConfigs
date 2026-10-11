@@ -1,9 +1,11 @@
 return {
 	"ThePrimeagen/harpoon",
+	branch = "master",
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 	config = function()
 		require("harpoon").setup({})
 		require("telescope").load_extension("harpoon")
+		vim.keymap.set("n", "<leader>ht", require("telescope").extensions.harpoon.marks, { desc = "Harpoon Telescope" })
 
 		-- Move your Harpoon keymaps here:
 		local mark = require("harpoon.mark")
@@ -11,10 +13,10 @@ return {
 
 		vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "[H]arpoon [A]dd File" })
 		vim.keymap.set("n", "<leader>harp", ui.toggle_quick_menu, { desc = "[H]arpoon [M]enu" })
-		vim.keymap.set("n", "<C-j>", function()
+		vim.keymap.set("n", "<leader>hn", function()
 			ui.nav_next()
 		end, { desc = "Navigate Next" })
-		vim.keymap.set("n", "<C-k>", function()
+		vim.keymap.set("n", "<leader>hp", function()
 			ui.nav_prev()
 		end, { desc = "Navigate Previous" })
 

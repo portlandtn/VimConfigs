@@ -22,12 +22,13 @@ return {
 				padding = 1,
 			},
 			icon = {
-				folder_closed = "",
-				folder_open = "",
-				folder_empty = "ﰊ",
+				default = vim.g.have_nerd_font and "" or "*",
+				folder_closed = vim.g.have_nerd_font and "" or "+",
+				folder_open = vim.g.have_nerd_font and "" or "-",
+				folder_empty = vim.g.have_nerd_font and "ﰊ" or "-",
 			},
 			git_status = {
-				symbols = {
+				symbols = vim.g.have_nerd_font and {
 					added = "✚",
 					modified = "",
 					deleted = "✖",
@@ -37,6 +38,16 @@ return {
 					unstaged = "",
 					staged = "",
 					conflict = "",
+				} or {
+					added = "+",
+					modified = "~",
+					deleted = "-",
+					renamed = ">",
+					untracked = "?",
+					ignored = "i",
+					unstaged = "U",
+					staged = "S",
+					conflict = "!",
 				},
 			},
 		},

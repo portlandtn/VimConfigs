@@ -29,13 +29,9 @@ vim.keymap.set("n", "<leader>rr", vim.lsp.buf.rename, { desc = "Rename Symbol" }
 vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, { desc = "Code Action" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
 vim.keymap.set("n", "gb", "<C-o>", { desc = "[G]o [B]ack" })
-vim.keymap.set("n", "<leader>config", ":Explore C:/Users/Jed.May/AppData/Local/nvim<CR>", { desc = "Explore Config" })
-vim.keymap.set(
-	"n",
-	"<leader>nafx",
-	":Explore C:/Users/Jed.May/source/repos/NAFX.Encompass/src/Plugin<CR>",
-	{ desc = "Explore NAFx.Encompass" }
-)
+vim.keymap.set("n", "<leader>config", function()
+	vim.cmd.Explore(vim.fn.fnameescape(vim.fn.stdpath("config")))
+end, { desc = "Explore Config" })
 -- Escape the movements
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true })
 vim.keymap.set("i", "kk", "<Esc>", { noremap = true, silent = true })
@@ -105,34 +101,5 @@ vim.api.nvim_create_user_command("DeleteFile", function()
 		return
 	end
 
-	-- Step 3: Look upward specifically for Plugin.csproj
-	local csproj_path = vim.fs.find("Plugin.csproj", { upward = true })[1]
-	if not csproj_path then
-		print("Plugin.csproj not found.")
-		vim.cmd("bd!")
-		return
-	end
-
-	-- Step 4: Remove the matching <Compile Include="..."> line
-	local lines = vim.fn.readfile(csproj_path)
-	local cleaned = {}
-	local removed = false
-
-	for _, line in ipairs(lines) do
-		if line:match('<Compile Include=".*' .. filename .. '"%s*/>') then
-			removed = true
-		else
-			table.insert(cleaned, line)
-		end
-	end
-
-	if removed then
-		vim.fn.writefile(cleaned, csproj_path)
-		print("Removed reference to " .. filename .. " from Plugin.csproj")
-	else
-		print("No matching <Compile Include> for " .. filename .. " in Plugin.csproj")
-	end
-
-	-- Step 5: Close buffer
 	vim.cmd("bd!")
-end, { desc = "Delete current file and remove from Plugin.csproj" })
+end, { desc = "Delete current file" })

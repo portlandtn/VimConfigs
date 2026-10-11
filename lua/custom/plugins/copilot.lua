@@ -1,5 +1,6 @@
 return {
 	"github/copilot.vim",
+	enabled = vim.fn.executable("node") == 1,
 	config = function()
 		vim.g.copilot_no_tab_map = true
 		vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("\\<CR>")', { expr = true, silent = true })

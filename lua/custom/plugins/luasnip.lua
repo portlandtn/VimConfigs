@@ -7,9 +7,9 @@ return {
 		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load() -- For friendly-snippets (optional)
 
-			-- Load your custom Lua-based snippets
-			require("luasnip.loaders.from_lua").load({
-				paths = "~/.config/nvim/lua/custom/snippets",
+			-- Load the repository's VS Code JSON snippets
+			require("luasnip.loaders.from_vscode").lazy_load({
+				paths = vim.fn.stdpath("config") .. "/lua/custom/snippets",
 			})
 		end,
 	},
