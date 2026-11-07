@@ -19,6 +19,8 @@ jobs:
         with:
           version: ${{ matrix.neovim }}
           neovim: true
+      - name: Verify offline and pinned bootstrap behavior
+        run: nvim -l scripts/test-bootstrap.lua
       - name: Verify installer backup and settings preservation
         run: nvim -l scripts/test-install.lua
       - name: Install without touching the default config
