@@ -92,3 +92,9 @@ nvim --headless "+lua dofile('scripts/smoke.lua')"
 ```
 
 The workflow must run on GitHub before its platform results can be claimed. It does not verify AI authentication, clipboard integration, C# server behavior, every parser, or terminal rendering. Local validation and remaining limits are recorded in `VALIDATION.md`.
+
+## Pinned plugin-manager bootstrap
+
+`lua/custom/bootstrap.lua` pins lazy.nvim to the commit already recorded in `lazy-lock.json`. Before adding its code to the runtime path, startup verifies the Git HEAD and rejects local modifications. Fresh clones are staged, checked out detached at the pin and verified before rename. Network/checkout failures remove only the newly created staging path; existing installs are never silently replaced. A 30-second bound applies to each Git operation.
+
+Updates require reviewing upstream changes, changing the bootstrap pin and lock commit together, then running `nvim -l scripts/test-bootstrap.lua` and the existing isolated startup smoke workflow. This pin is reproducibility control, not a claim of an upstream security audit. An existing mismatched/dirty install requires backup and manual review before restoring the pinned revision; no automatic reset/discard is performed. Roll back both pin and lock in Git plus the backed-up plugin checkout. Offline startup succeeds only with a clean already-pinned installation. Tests use fake Git responses, never alter the user's plugin installation.
